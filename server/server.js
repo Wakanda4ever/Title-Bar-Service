@@ -14,18 +14,17 @@ app.listen(3005, function () {
 });
 
 app.post('/title-bar/restaurant', function (req, res) {
-	console.log('posted '+JSON.stringify(req.body));
+	console.log('posted ' + JSON.stringify(req.body));
 	var dataToParse = new db.Restaurant(req.body);
-	dataToParse.save(function(err){
-		if(err){
+	dataToParse.save(function (err) {
+		if (err) {
 			console.log(err);
 		}
 		console.log('Successfully added to database');
-	}).catch(function(err){
-		console.log(err);
-	})
-	res.end(req.body);
+	});
+	res.end();
 })
+
 app.get('/title-bar/restaurant', function (req, res) {
 	db.Restaurant.find(function (err, result) {
 		if (err) {

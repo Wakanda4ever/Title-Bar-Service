@@ -4,6 +4,7 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 let restaurantSchema = mongoose.Schema({
   id: { type: String, required: true, unique: true },
+  title: {type: String, required: true, unique: false},
   rating: { type: Number, required: true, unique: false },
   reviewCount: { type: Number, required: true, unique: false},
   dollarRating: {type: String, required: true, unique: false},
