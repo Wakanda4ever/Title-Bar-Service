@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TitleBar from './../components/TitleBar.jsx'
 import axios from 'axios';
 
+
 var exampleData = {
 	id: 'abc123',
 	title: 'Breakfast Club',
@@ -18,7 +19,13 @@ class App extends React.Component{
 	}
 
 	componentDidMount(){
-		axios.post('/title-bar/restaurant', exampleData)
+		// axios.post('/title-bar/restaurant', exampleData)
+		// .then(function(response){
+		// 	console.log('Post successful');
+		// }).catch(function(error){
+		// 	console.log(error);
+		// })
+		axios.get('/title-bar/restaurant')
 		.then(function(response){
 			console.log('Post successful');
 		}).catch(function(error){

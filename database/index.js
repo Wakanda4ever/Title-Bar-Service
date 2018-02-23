@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/restaurants');
+mongoose.connect('mongodb://localhost/chompy3005');
 var uniqueValidator = require('mongoose-unique-validator');
 
 let restaurantSchema = mongoose.Schema({
-  id: { type: String, required: true, unique: true },
+  business_id: { type: String, required: true, unique: true },
   title: {type: String, required: true, unique: false},
   rating: { type: Number, required: true, unique: false },
   reviewCount: { type: Number, required: true, unique: false},

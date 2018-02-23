@@ -26,10 +26,25 @@ app.post('/title-bar/restaurant', function (req, res) {
 })
 
 app.get('/title-bar/restaurant', function (req, res) {
-	db.Restaurant.find(function (err, result) {
+	db.Restaurant.find(
+		{
+			"$or": [{
+				"city": "Las Vegas"
+			}, {
+				"city": "Toronto"
+			}, {
+				"city": "Pittsburgh"
+			}, {
+				"city": "Phoenix"
+			}],
+			"categories": { $in:['Restaurants', 'Food', 'Bars']}
+		}, function (err, result) {
 		if (err) {
 			console.log(err);
+		} else {
+			console.log('DID IT WORK?');
+			console.log(result);
+			res.end(JSON.stringify(result));
 		}
-		res.json(result);
 	})
 })
