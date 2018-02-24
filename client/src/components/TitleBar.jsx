@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 class TitleBar extends React.Component {
 	constructor(props) {
@@ -7,8 +8,9 @@ class TitleBar extends React.Component {
 	}
 	render() {
 		return (
-			<div>{this.props.exampleData.title}</div>
+			<div>{this.props.restaurantData.name}</div>
 		);
 	}
 }
+TitleBar.propTypes = {restaurantData: PropTypes.object};
 export default TitleBar;
