@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import TitleBar from './../components/TitleBar.jsx'
 import axios from 'axios';
 
-class App extends React.Component{
-	constructor(props){
+class App extends React.Component {
+	constructor(props) {
 		super(props);
 		this.state = {
-			restaurantData : {
+			restaurantData: {
 				business_id: '',
 				name: '',
 				isClaimed: true,
@@ -15,30 +15,50 @@ class App extends React.Component{
 				review_count: 0,
 				dollarRating: '',
 				categories: [],
-			}
+			},
+			param: '',
+			displayID: ''
 		}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		const context = this;
-		console.log('component mounted');
-		axios.get('/title-bar/restaurant/').then(function(response){
-			console.log('Post successful');
-			console.log('here is data' + JSON.stringify(response));
+		axios.get('/title-bar/restaurant/LObptJvHwCQNkXemJpG85w').then(function (response) {
 			context.setState({
-				restaurantData: response.data
+				restaurantData: response.data,
+				param: response.data.business_id
 			});
-			console.log('state is now ' + JSON.stringify(context.state.restaurantData));
-		  }).catch(function(error){
+		}).catch(function (error) {
 			console.log(error);
-		  })
-
+		})
+		console.log('Here is a list of working restaurants: cTJjTKz2huGZ-ElScC2pSw, j37Z4LIXTH9j6KOq9aX8DQ, 1K4qrnfyzKzGgJPBEcJaNQ, NpozCEWra9PkYtxCtCPr6Q, KWdRUyN6H5NIOiP37I9psg, rp0bKQBtAR9XHeeR4CMCOA');
+		console.log('Check database for more');
 	}
 
-	render(){
-		console.log(this.state.restaurantData);
-		return(
-			<TitleBar restaurantData={this.state.restaurantData}  />
+	onChange(e) {
+		this.setState({
+			displayID: e.target.value
+		});
+	}
+	onClick() {
+		const context = this;
+		var getURL = '/title-bar/restaurant/' + this.state.displayID;
+		axios.get(getURL).then(function (response) {
+			context.setState({
+				restaurantData: response.data,
+				param: response.data.business_id
+			});
+		}).catch(function (error) {
+			console.log(error);
+		})
+	}
+	render() {
+		return (
+			<div>
+				<TitleBar restaurantData={this.state.restaurantData} />
+				<input value={this.state.displayID} onChange={this.onChange.bind(this)} />
+				<button onClick={this.onClick.bind(this)}>Find Restaurant By ID</button>
+			</div>
 		);
 	}
 }

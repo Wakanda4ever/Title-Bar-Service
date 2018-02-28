@@ -26,32 +26,45 @@ app.post('/title-bar/restaurant/', function (req, res) {
 })
 
 app.get('/category', function (req, res) {
-	res.end();
+	res.status(400);
+	res.end('404 Page Not Found');
 });
 
-app.get('/title-bar/restaurant', function (req, res) {
-	db.RestaurantInfo.findOne(function (err, result) {
-		if (err) {
-			console.log(err);
-			res.end();
-		} else {
-			console.log('Displaying RestaurantInfo data!');
-			console.log('results'+result);
-			res.send(JSON.stringify(result));
-		}
-	});
+app.get('/review', function (req, res) {
+	res.status(400);
+	res.end('404 Page Not Found');
 });
+
+app.get('/photo', function (req, res) {
+	res.status(400);
+	res.end('404 Page Not Found');
+});
+
+app.get('/share', function (req, res) {
+	res.status(400);
+	res.end('404 Page Not Found');
+});
+
+app.get('/bookmark', function (req, res) {
+	res.status(400);
+	res.end('404 Page Not Found');
+});
+
 app.get('/title-bar/restaurant/:id', function (req, res) {
-	var searchID = {id: req.params.id};
-	db.RestaurantInfo.find({business_id: req.params.id}, function (err, result) {
+	var searchID = {
+		id: req.params.id
+	};
+	db.RestaurantInfo.find({
+		business_id: req.params.id
+	}, function (err, result) {
 		if (err) {
 			console.log(err);
 			res.end();
 		} else {
-			console.log('success'+req.params.id);
+			console.log('success on id: ' + req.params.id);
 			console.log('Displaying RestaurantInfo data!');
-			console.log('results'+result);
-			res.send(JSON.stringify(result));
+			console.log('results' + result);
+			res.end(JSON.stringify(result[0]));
 		}
 	});
 })
