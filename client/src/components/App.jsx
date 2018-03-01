@@ -23,7 +23,9 @@ class App extends React.Component {
 
 	componentDidMount() {
 		const context = this;
-		axios.get('/title-bar/restaurant/LObptJvHwCQNkXemJpG85w').then(function (response) {
+		const url = window.location.href.split('/').pop();
+		
+		axios.get('/title-bar/restaurant/'+url).then(function (response) {
 			context.setState({
 				restaurantData: response.data,
 				param: response.data.business_id

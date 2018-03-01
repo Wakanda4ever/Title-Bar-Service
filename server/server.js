@@ -49,7 +49,9 @@ app.get('/bookmark', function (req, res) {
 	res.status(400);
 	res.end('404 Page Not Found');
 });
-
+app.get('/:id',function(req,res){
+	res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
+});
 app.get('/title-bar/restaurant/:id', function (req, res) {
 	var searchID = {
 		id: req.params.id
@@ -61,9 +63,9 @@ app.get('/title-bar/restaurant/:id', function (req, res) {
 			console.log(err);
 			res.end();
 		} else {
-			console.log('success on id: ' + req.params.id);
+			console.log('Success on id: ' + req.params.id);
 			console.log('Displaying RestaurantInfo data!');
-			console.log('results' + result);
+			console.log('results', result);
 			res.end(JSON.stringify(result[0]));
 		}
 	});
