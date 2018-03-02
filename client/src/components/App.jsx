@@ -23,9 +23,9 @@ class App extends React.Component {
 
 	componentDidMount() {
 		const context = this;
-		const url = window.location.href.split('/').pop();
-		
-		axios.get('/title-bar/restaurant/'+url).then(function (response) {
+		var url = window.location.href.split('/').pop();
+		(url.length > 0) ? url : url = '1K4qrnfyzKzGgJPBEcJaNQ'; 	// If no id specified, use this as default
+		axios.get('/title-bar/restaurant/' + url).then(function (response) {
 			context.setState({
 				restaurantData: response.data,
 				param: response.data.business_id
@@ -37,29 +37,10 @@ class App extends React.Component {
 		console.log('Check database for more');
 	}
 
-	onChange(e) {
-		this.setState({
-			displayID: e.target.value
-		});
-	}
-	onClick() {
-		const context = this;
-		var getURL = '/title-bar/restaurant/' + this.state.displayID;
-		axios.get(getURL).then(function (response) {
-			context.setState({
-				restaurantData: response.data,
-				param: response.data.business_id
-			});
-		}).catch(function (error) {
-			console.log(error);
-		})
-	}
 	render() {
 		return (
 			<div>
 				<TitleBar restaurantData={this.state.restaurantData} />
-				<input value={this.state.displayID} onChange={this.onChange.bind(this)} />
-				<button onClick={this.onClick.bind(this)}>Find Restaurant By ID</button>
 			</div>
 		);
 	}
