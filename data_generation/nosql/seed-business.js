@@ -6,7 +6,7 @@ var client = new cassandra.Client({
   keyspace: 'chompy_ks'
 });
 
-//PLEASE REFACTOR: don't use cassandra batches - these are designed for ops on a single
+//Possible refactor: don't use cassandra batches - these are designed for ops on a single
 //partition. bad performance when inserting multiple partitions.
 
 var counter = 1;
