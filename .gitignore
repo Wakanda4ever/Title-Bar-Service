@@ -1,3 +1,7 @@
+#data
+dataset
+yelp_db.sql
+
 # Logs
 logs
 *.log
