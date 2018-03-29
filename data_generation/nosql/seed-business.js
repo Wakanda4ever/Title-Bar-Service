@@ -54,9 +54,9 @@ var insertBatch = () => {
   var businesses = getXBusinesses(500);
   var insertionPromises = [];
   const queryString = `INSERT INTO business
-    (business_key, business_id, name, claimed,
+    (id, name, claimed,
     review_count, stars, dollar_signs, categories)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+    VALUES (?, ?, ?, ?, ?, ?, ?);`;
 
   for (var x = 0; x < businesses.length; x++) {
     for(var y = 0; y < 2; y++) {
@@ -64,7 +64,6 @@ var insertBatch = () => {
       var { name, review_count, stars, categories } = businesses[x];
       for (var i = 0; i < 30; i++) {
         var replacements = [
-          counter,
           counter,
           name,
           true,

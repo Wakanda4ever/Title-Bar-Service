@@ -12,9 +12,8 @@ redisClient.on('error', (err) => console.error(err));
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
 
 //activate middleware
 app.use(cors());
@@ -24,7 +23,7 @@ app.use(morgan('tiny'));
 //serve static files
 app.use('/:id', express.static('./client/dist'));
 
-//api calls
+//api calls with redis
 app.get('/title-bar/restaurant/:id', (req, res) => {
 	redisClient.getAsync(req.params.id).then(result => {
 		if (result === null) {
@@ -41,8 +40,18 @@ app.get('/title-bar/restaurant/:id', (req, res) => {
 	.catch((err) => {
 		console.error('Failed to serve get request', err);
 	});
-
 });
+
+// //api calls without redis
+// app.get('/title-bar/restaurant/:id', (req, res) => {
+// 	db.getBusinessById(req.params.id)
+// 		.then((business) => {
+// 			res.send(business);
+// 		})
+// 		.catch((err) => {
+// 			console.error('Failed to serve get request', err);
+// 		});
+// });
 
 //assign default for calls to root without id
 app.use('/', (req, res) => {

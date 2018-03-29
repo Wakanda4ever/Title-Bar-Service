@@ -1,4 +1,4 @@
-#titlebar
+# titlebar
 # What image do you want to start building on?
 FROM node:8.9.3
 
