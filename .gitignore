@@ -1,6 +1,10 @@
-#data
+# data
 dataset
 yelp_db.sql
+cassandra-dump.csv
+
+# new relic config
+newrelic.js
 
 # Logs
 logs

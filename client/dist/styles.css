@@ -1,66 +1,76 @@
+body {
+  font-family: "lucida grande";
+}
+
+h1 {
+  display: inline;
+}
+
 .titleBar {
-padding: 15px;
-background-color: #f5f5f5;
+  border: 1px solid;
+  padding: 15px;
+  background-color: #f5f5f5;
 }
 
 .restaurant-titlebar-row1,
 .restaurant-titlebar-row2,
 .restaurant-titlebar-row3 {
-margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .restaurant-titlebar-categories {
-font-size: 14px;
+  font-size: 14px;
 }
 
 .restaurant-titlebar-categories a,
 .restaurant-titlebar-rightrow1 a,
 .restaurant-titlebar-rightrow2 a {
-text-decoration: none;
+  text-decoration: none;
 }
 
 .restaurant-titlebar-categories a:hover {
-text-decoration: underline;
-color: #0073bb;
+  text-decoration: underline;
+  color: #0073bb;
 }
 
 .restaurant-titlebar-categories a:visited {
-color: #0073bb;
+  color: #0073bb;
 }
 
 .restaurant-titlebar-rightrow-button {
-padding: 5px;
+  border: solid 1px;
+  padding: 5px;
 }
 
 .restaurant-titlebar-rightrow2 a {
-border: 1px solid whitesmoke;
-color: #000000 !important;
-background-color: #ffffff;
+  border: solid 1px;
+  color: #000000 !important;
+  background-color: #ffffff;
 }
 
 .restaurant-titlebar-rightrow2 a:hover {
-color: #0073bb !important;
+  color: #0073bb !important;
 }
 
 .restaurant-titlebar-rightrow2 a:visited {
-color: #000000 !important;
+  color: #000000 !important;
 }
 
 .restaurant-titlebar-rightrow1,
 .restaurant-titlebar-rightrow2 {
-text-decoration: none;
-float: right;
+  text-decoration: none;
+  float: right;
 }
 
 .restaurant-titlebar-is-claimed {
-font-size: 12px;
+  font-size: 12px;
 }
 
 .restaurant-titlebar-stars {
-font-weight: bold;
-color: #d2601e;
+  font-weight: bold;
+  color: #d2601e;
 }
 
 .restaurant-titlebar-review-count {
-color: #727272;
+  color: #727272;
 }

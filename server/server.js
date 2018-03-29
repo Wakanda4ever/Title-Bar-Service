@@ -1,77 +1,63 @@
+require('newrelic');
+const Promise = require('bluebird');
+
+const db = require('../database/controllers/cassandra.js');
+//const db = require('../database/controllers/mysql.js');
+const redis = require('redis');
+Promise.promisifyAll(redis.RedisClient.prototype);
+Promise.promisifyAll(redis.Multi.prototype);
+const redisClient = redis.createClient();
+redisClient.on('error', (err) => console.error(err));
+
 const express = require('express');
 const app = express();
-const path = require('path');
-const bodyParser = require('body-parser');
-const pathname = path.join(__dirname + './../client/dist');
-const db = require('./../database/index.js');
+const morgan = require('morgan');
+//const bodyParser = require('body-parser');
+const cors = require('cors');
+
+//activate middleware
+app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(pathname));
+app.use(morgan('tiny'));
 
-const result = {};
+//serve static files
+app.use('/:id', express.static('./client/dist'));
 
-app.listen(3005, function () {
-	console.log('Listening on port 3005.')
-});
-
-// app.post('/title-bar/restaurant/', function (req, res) {
-// 	console.log('posted ' + JSON.stringify(req.body));
-// 	const dataToParse = new db.Restaurant(req.body);
-// 	dataToParse.save(function (err) {
-// 		if (err) {
-// 			console.log(err);
-// 		}
-// 		console.log('Successfully added to database');
-// 	});
-// 	res.end();
-// })
-
-app.get('/category', function (req, res) {
-	res.status(400);
-	res.end('404 Page Not Found');
-});
-
-app.get('/review', function (req, res) {
-	res.status(400);
-	res.end('404 Page Not Found');
-});
-
-app.get('/photo', function (req, res) {
-	res.status(400);
-	res.end('404 Page Not Found');
-});
-
-app.get('/share', function (req, res) {
-	res.status(400);
-	res.end('404 Page Not Found');
-});
-
-app.get('/bookmark', function (req, res) {
-	res.status(400);
-	res.end('404 Page Not Found');
-});
-app.get('/:id', function (req, res) {
-	res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
-});
-// app.get('/title-bar/restaurant/:id', function (req, res) {
-// 	db.RestaurantInfo.find({
-// 		business_id: req.params.id
-// 	}, function (err, result) {
-// 		if (err) {
-// 			console.log(err);
-// 			res.end();
-// 		} else {
-// 			res.end(JSON.stringify(result[0]));
-// 		}
-// 	});
-// })
-
+//api calls with redis
 app.get('/title-bar/restaurant/:id', (req, res) => {
-  var id = req.params.id;
-  console.log('highlights id', id)
-  var query = `SELECT * FROM business WHERE id = "${id}"`
-   db.connection.query(query, function(err, rows, fields){
-    if (err) throw err
-    var reviews = rows;
-    res.header("Access-Control-Allow-Origin", "*").send(reviews)
-  });
+	redisClient.getAsync(req.params.id).then(result => {
+		if (result === null) {
+			return db.getBusinessById(req.params.id)
+			.then((business) => {
+				res.send(business);
+				return redisClient.setAsync(req.params.id, JSON.stringify(business));
+			});
+		} else {
+			res.send(result);
+			return;
+		}
+	})
+	.catch((err) => {
+		console.error('Failed to serve get request', err);
+	});
 });
+
+// //api calls without redis
+// app.get('/title-bar/restaurant/:id', (req, res) => {
+// 	db.getBusinessById(req.params.id)
+// 		.then((business) => {
+// 			res.send(business);
+// 		})
+// 		.catch((err) => {
+// 			console.error('Failed to serve get request', err);
+// 		});
+// });
+
+//assign default for calls to root without id
+app.use('/', (req, res) => {
+	res.redirect('/10000000');
+});
+
+//start listening
+var port = process.env.PORT || 3005;
+app.listen(port, () => console.log('Listening on port', port + '...'));

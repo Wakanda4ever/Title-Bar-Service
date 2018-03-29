@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:3005'
+  processor: './artillery_loader.js'
+  phases:
+    - duration: 240
+      arrivalRate: 0
+      rampTo: 1000
+    - duration: 60
+      arrivalRate: 1000
+  defaults:
+    headers:
+scenarios:
+  - flow:
+    - function: "getRandomBusinessIdArtillery"
+    - get:
+        url: "/title-bar/restaurant/{{ business_id }}"
