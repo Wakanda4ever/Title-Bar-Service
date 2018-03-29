@@ -17,7 +17,7 @@ const cors = require('cors');
 
 //activate middleware
 app.use(cors());
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 //serve static files
