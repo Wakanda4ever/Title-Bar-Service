@@ -13,12 +13,18 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 //const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 
 //activate middleware
 app.use(cors());
 //app.use(bodyParser.json());
 app.use(morgan('tiny'));
+
+//for loader.io
+app.get('/loaderio-79c823bb28eaa1fe69bc1dafca34b4f5', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'loaderio'));
+});
 
 //serve static files
 app.use('/:id', express.static('./client/dist'));
