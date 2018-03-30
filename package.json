@@ -6,9 +6,10 @@
   "author": "Louis Mun",
   "license": "MIT",
   "scripts": {
-    "test": "mocha",
-    "start": "node ./server/server.js",
-    "app-dev": "webpack -d --watch"
+    "test": "echo 'no tests written'",
+    "start": "sudo node ./server/server.js",
+    "app-dev": "webpack -d --watch",
+    "clear-redis": "echo FLUSHALL | redis-cli"
   },
   "dependencies": {
     "axios": "^0.18.0",
