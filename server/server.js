@@ -11,7 +11,7 @@ redisClient.on('error', (err) => console.error(err));
 
 const express = require('express');
 const app = express();
-//const morgan = require('morgan');
+const morgan = require('morgan');
 //const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
@@ -19,7 +19,7 @@ const cors = require('cors');
 //activate middleware
 app.use(cors());
 //app.use(bodyParser.json());
-//app.use(morgan('tiny'));
+app.use(morgan('tiny'));
 
 // //for loader.io
 // app.get('/loaderio-79c823bb28eaa1fe69bc1dafca34b4f5', (req, res) => {
