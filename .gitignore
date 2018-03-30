@@ -3,6 +3,7 @@ dataset
 yelp_db.sql
 cassandra-dump.csv
 ids.json
+dump.rdb
 
 # new relic config
 newrelic.js
