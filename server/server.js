@@ -1,4 +1,4 @@
-require('newrelic');
+//require('newrelic');
 const Promise = require('bluebird');
 
 const db = require('../database/controllers/cassandra.js');
@@ -11,7 +11,7 @@ redisClient.on('error', (err) => console.error(err));
 
 const express = require('express');
 const app = express();
-const morgan = require('morgan');
+//const morgan = require('morgan');
 //const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
@@ -19,12 +19,12 @@ const cors = require('cors');
 //activate middleware
 app.use(cors());
 //app.use(bodyParser.json());
-app.use(morgan('tiny'));
+//app.use(morgan('tiny'));
 
-//for loader.io
-app.get('/loaderio-79c823bb28eaa1fe69bc1dafca34b4f5', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'loaderio'));
-});
+// //for loader.io
+// app.get('/loaderio-79c823bb28eaa1fe69bc1dafca34b4f5', (req, res) => {
+//   res.sendFile(path.join(__dirname, '..', 'loaderio'));
+// });
 
 //serve static files
 app.use('/:id', express.static('./client/dist'));
@@ -59,11 +59,11 @@ app.get('/title-bar/restaurant/:id', (req, res) => {
 // 		});
 // });
 
-//assign default for calls to root without id
-app.use('/', (req, res) => {
-	res.redirect('/10000000');
-});
+// //assign default for calls to root without id
+// app.use('/', (req, res) => {
+// 	res.redirect('/10000000');
+// });
 
 //start listening
-var port = 80;;
+var port = 80;
 app.listen(port, () => console.log('Listening on port', port + '...'));
