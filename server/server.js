@@ -1,4 +1,4 @@
-//require('newrelic');
+require('newrelic');
 const Promise = require('bluebird');
 
 const db = require('../database/controllers/cassandra.js');
