@@ -1,4 +1,4 @@
-var databaseHost = process.env.SDC_DATABASE_HOST || 'localhost';
+var databaseHost = '52.8.170.108';
 
 var Promise = require('bluebird');
 var cassandra = require('cassandra-driver');

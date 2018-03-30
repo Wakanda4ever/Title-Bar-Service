@@ -59,5 +59,6 @@ app.use('/', (req, res) => {
 });
 
 //start listening
-var port = process.env.PORT || 3005;
+console.log(process.env.PORT);
+var port = 80;;
 app.listen(port, () => console.log('Listening on port', port + '...'));
