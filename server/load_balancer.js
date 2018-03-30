@@ -20,7 +20,7 @@ app.get('/loaderio-79c823bb28eaa1fe69bc1dafca34b4f5', (req, res) => {
 
 //api calls
 app.get('/title-bar/restaurant/:id', (req, res) => {
-  res.redirect(servers[currentServer] + '/title-bar/restaurant/' + req.params.id);
+  res.redirect(`http://${servers[currentServer]}/title-bar/restaurant/${req.params.id}`);
   currentServer++;
   currentServer = currentServer % servers.length;
 });
