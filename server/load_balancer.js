@@ -1,9 +1,11 @@
-require('newrelic');
+//require('newrelic');
 const Promise = require('bluebird');
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
+const request = require('request');
 
 app.use(cors());
 app.use(morgan('tiny'));
@@ -14,7 +16,7 @@ var servers = [
 ];
 
 //for loader.io
-app.get('/loaderio-79c823bb28eaa1fe69bc1dafca34b4f5', (req, res) => {
+app.get('/loaderio-c3560d72e564a4dd5a2cebee84400202', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'loaderio'));
 });
 
@@ -30,7 +32,7 @@ app.use('/', (req, res) => {
 	res.redirect('/10000000');
 });
 app.use('/title-bar/restaurant', (req, res) => {
-	res.redirect('/title-bar/restaurant/10000000');
+	res.redirect(`http://${servers[currentServer]}/title-bar/restaurant/10000000`);
 });
 
 var port = 80;
