@@ -35,6 +35,9 @@ app.get('/title-bar/restaurant/:id', (req, res) => {
 		if (result === null) {
 			return db.getBusinessById(req.params.id)
 			.then((business) => {
+        if (business === undefined) {
+          throw 'Business not found...';
+        }
 				res.send(business);
 				return redisClient.setAsync(req.params.id, JSON.stringify(business));
 			}).catch(err => {
