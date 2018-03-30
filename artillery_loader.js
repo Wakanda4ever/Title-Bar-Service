@@ -1,5 +1,6 @@
 //This function generates random integers from an isoelastic distribution
 //This is a downward sloping concave function
+var fs = require('fs');
 
 var tenM = 10000000;
 
@@ -46,9 +47,25 @@ var testLimits = () => {
   console.log(getRandomBusinessId(tenM) >= 1);
 }
 
-// Invoke Tests
-console.log(testFirst(10000, 100));
-console.log(testLimits());
-console.log(testCount());
+var generateFile = () => {
+  var obj = { keys: ['id'], values: []};
+  for (var i = 0; i < 350000; i++) {
+    var arr = [getRandomBusinessId()];
+    obj.values.push(arr);
+    if (i % 10000 === 0) {
+      console.log('pushed', i);
+    }
+  }
+  fs.writeFileSync('./ids.json', JSON.stringify(obj));
+}
+
+// // Invoke Tests
+// console.log(testFirst(10000, 100));
+// console.log(testLimits());
+// console.log(testCount());
+
+//generate files
+generateFile();
+
 
 module.exports.getRandomBusinessIdArtillery = getRandomBusinessIdArtillery;
