@@ -37,14 +37,18 @@ app.get('/title-bar/restaurant/:id', (req, res) => {
 			.then((business) => {
 				res.send(business);
 				return redisClient.setAsync(req.params.id, JSON.stringify(business));
-			});
+			}).catch(err => {
+        console.error('failed to fetch from database', err);
+        res.status(404).send('failed to fetch from database ' + err);
+      });
 		} else {
 			res.send(result);
 			return;
 		}
 	})
 	.catch((err) => {
-		console.error('Failed to serve get request', err);
+		console.error('Failed to fetch from cache', err);
+    res.status(404).send('Failed to fetch from cache ' + err);
 	});
 });
 
