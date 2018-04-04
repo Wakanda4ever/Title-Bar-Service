@@ -21,10 +21,10 @@ app.use(cors());
 //app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
-// //for loader.io
-// app.get('/loaderio-79c823bb28eaa1fe69bc1dafca34b4f5', (req, res) => {
-//   res.sendFile(path.join(__dirname, '..', 'loaderio'));
-// });
+//for loader.io
+app.get('/loaderio-c3560d72e564a4dd5a2cebee84400202', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'loaderio'));
+});
 
 //serve static files
 app.use('/:id', express.static('./client/dist'));
