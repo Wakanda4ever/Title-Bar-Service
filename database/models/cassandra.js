@@ -11,7 +11,7 @@ var client = new cassandra.Client({
   ],
   pooling: {
     coreConnectionsPerHost: {
-      [distance.local]: 1000,
+      [distance.local]: 10,
       [distance.remote]: 1
     }
   },
